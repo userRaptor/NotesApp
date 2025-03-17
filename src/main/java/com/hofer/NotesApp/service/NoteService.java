@@ -2,6 +2,7 @@ package com.hofer.NotesApp.service;
 
 import com.hofer.NotesApp.model.Note;
 import com.hofer.NotesApp.repository.NoteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,12 @@ import java.util.List;
 @Service
 public class NoteService {
 
-    private NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
+
+    @Autowired
+    public NoteService(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
+    }
 
     public List<Note> getAllNotes(){
         return noteRepository.findAll();
