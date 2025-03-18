@@ -41,5 +41,4 @@ public class NoteController {
         noteService.deleteNoteById(id);
         return ResponseEntity.ok("Note deleted successfully");
     }
-
 }
