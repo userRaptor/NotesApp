@@ -99,6 +99,7 @@ function App() {
             .then(() => {
                 fetchNotes();
                 setEditingNoteId(null);
+                successAlert("Note updated successfully");
             })
             .catch((error) => console.error("Error updating note:", error));
     };
@@ -196,7 +197,7 @@ function App() {
                 }}>
                 {notes.map(note => (
                     <Card key={note.noteId} sx={{ width: '300px', height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                        <CardContent>
+                        <CardContent sx={{overflowY: 'auto' }}>
                             {editingNoteId === note.noteId ? (
                                 <>
                                     <TextField
