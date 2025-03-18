@@ -24,12 +24,22 @@ function App() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    const [editingNoteId, setEditingNoteId] = useState(null);
+    const [editTitle, setEditTitle] = useState('');
+    const [editContent, setEditContent] = useState('');
+
     const [openModalAddNote, setOpenModalAddNote] = React.useState(false);
     const handleOpenModalAddNote = () => setOpenModalAddNote(true);
     const handleCloseModalAddNote = () => {
         setOpenModalAddNote(false);
         setTitle('');
         setContent('');
+    };
+
+    const startEditing = (note) => {
+        setEditingNoteId(note.noteId);
+        setEditTitle(note.title);
+        setEditContent(note.content);
     };
 
     const fetchNotes = () => {
@@ -83,6 +93,16 @@ function App() {
         }
     };
 
+    const updateNote = (noteId) => {
+        axios
+            .put(`/api/notes/${noteId}`, { title: editTitle, content: editContent })
+            .then(() => {
+                fetchNotes();
+                setEditingNoteId(null);
+            })
+            .catch((error) => console.error("Error updating note:", error));
+    };
+
     useEffect(() => {
         fetchNotes();
     }, []);
@@ -121,16 +141,49 @@ function App() {
                 {notes.map(note => (
                     <Card key={note.noteId} sx={{ width: '300px', height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {note.title}
-                            </Typography>
-                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                {note.content}
-                            </Typography>
+                            {editingNoteId === note.noteId ? (
+                                <>
+                                    <TextField
+                                        value={editTitle}
+                                        onChange={(e) => setEditTitle(e.target.value)}
+                                        fullWidth
+                                        variant="standard"
+                                        label="Title"
+                                    />
+                                    <TextField
+                                        value={editContent}
+                                        onChange={(e) => setEditContent(e.target.value)}
+                                        fullWidth
+                                        variant="standard"
+                                        label="Content"
+                                        multiline
+                                        rows={2}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {note.title}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                        {note.content}
+                                    </Typography>
+                                </>
+                            )}
                         </CardContent>
                         <CardActions>
-                            <Button size="small" onClick={() => deleteNote(note.noteId)}>Delete</Button>
-                            <Button size="small">Edit</Button>
+                            {editingNoteId === note.noteId ? (
+                                <>
+                                    <Button size="small" onClick={() => updateNote(note.noteId)}>Save</Button>
+                                    <Button size="small" onClick={() => setEditingNoteId(null)}>Cancel</Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Button size="small" onClick={() => deleteNote(note.noteId)}>Delete</Button>
+                                    <Button size="small" onClick={() => startEditing(note)}>Edit</Button>
+                                </>
+                            )}
+
                         </CardActions>
                     </Card>
                 ))}
