@@ -46,7 +46,6 @@ function App() {
         axios
             .get(`/api/notes`)
             .then((response) => {
-                console.log(response.data);
                 setNotes(response.data);
             })
             .catch((error) => {

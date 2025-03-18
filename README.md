@@ -1,9 +1,15 @@
-# NotesApp
+# <img src="./frontend/public/notes-svgrepo-com.svg" alt="Logo" width="100" /> NotesApp 
+
 
 Die Anwendung ist eine kleine **Webanwendung zur Verwaltung von Notizen**. Jede Notiz besteht aus einem **Titel** und einem **Freitext**. Nutzer können neue Notizen erstellen, bestehende Notizen bearbeiten und löschen.
 
 ## Anwendung erstellen
 Um die Anwendung zu erstellen, müssen `Java 21` und `Maven` auf dem System installiert sein.
+
+Zudem muss eine MySQL-Datenbank mit den folgenden Details erstellt werden:  
+- **Datenbankname:** `notesAppDB`  
+- **Benutzer:** `newUser`  
+- **Passwort:** `password`
 
 Das Backend kann mit folgendem Befehl im Stammverzeichnis des Projekts gestartet werden:
 
