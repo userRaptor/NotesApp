@@ -30,6 +30,17 @@ function App() {
             });
     };
 
+    const deleteNote = (noteId) => {
+        axios
+            .delete(`/api/notes/${noteId}`)
+            .then(() => {
+                fetchNotes();
+            })
+            .catch((error) => {
+                console.error("Error deleting notification:", error);
+            });
+    };
+
     useEffect(() => {
         fetchNotes();
     }, []);
@@ -38,44 +49,31 @@ function App() {
     return (
         <div>
             <Typography variant="h3" gutterBottom>
-                Meine Notizen:
+                My Notes:
             </Typography>
-
-            {notes.map(note => (
-                <div key={note.noteId}>
-                    <h3>{note.title}</h3>
-                    <p>{note.content}</p>
-                    <button onClick={() => handleDelete(note.noteId)}>Löschen</button>
-                </div>
-            ))}
-
-
-
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image="/static/images/cards/contemplative-reptile.jpg"
-                        alt="green iguana"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Lizard
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                            Lizards are a widespread group of squamate reptiles, with over 6,000
-                            species, ranging across all continents except Antarctica
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        Share
-                    </Button>
-                </CardActions>
-            </Card>
-
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 3,
+                }}>
+                {notes.map(note => (
+                    <Card key={note.noteId} sx={{ width: '300px', height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {note.title}
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                {note.content}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small" onClick={() => deleteNote(note.noteId)}>Delete</Button>
+                            <Button size="small">Edit</Button>
+                        </CardActions>
+                    </Card>
+                ))}
+            </Box>
         </div>
     )
 }
