@@ -45,4 +45,4 @@ Das **Backend** wurde mit Spring Boot in Java entwickelt, wobei Maven als Build-
 
 ---
 
-**Erstellt von:** [Hofer Lukas](https://git.uibk.ac.at/csaz9699)
+**Erstellt von:** [Hofer Lukas](https://github.com/userRaptor/NotesApp)
