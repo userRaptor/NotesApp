@@ -9,8 +9,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 
-import CardMedia from '@mui/material/CardMedia';
-import CardActionArea from '@mui/material/CardActionArea';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 
@@ -30,15 +29,22 @@ function App() {
             });
     };
 
+
     const deleteNote = (noteId) => {
-        axios
-            .delete(`/api/notes/${noteId}`)
-            .then(() => {
-                fetchNotes();
-            })
-            .catch((error) => {
-                console.error("Error deleting notification:", error);
-            });
+        if (
+            window.confirm(
+                "Are you sure to delete this Note?"
+            )
+        ) {
+            axios
+                .delete(`/api/notes/${noteId}`)
+                .then(() => {
+                    fetchNotes();
+                })
+                .catch((error) => {
+                    console.error("Error deleting notification:", error);
+                });
+        }
     };
 
     useEffect(() => {
@@ -48,9 +54,16 @@ function App() {
 
     return (
         <div>
-            <Typography variant="h3" gutterBottom>
-                My Notes:
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, mt: 3 }}>
+                <Typography variant="h3" gutterBottom>
+                    My Notes:
+                </Typography>
+                <Button variant="contained">
+                    Add Note
+                    <AddCircleOutlineIcon fontSize="small" sx={{ ml: 1 }} />
+                </Button>
+            </Box>
+
             <Box
                 sx={{
                     display: 'flex',
