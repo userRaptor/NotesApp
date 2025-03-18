@@ -15,6 +15,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import '../assets/styles/Modal.css';
 
 
 function App() {
@@ -150,19 +151,6 @@ function App() {
         });
     };
 
-    const modalStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
-
-
     return (
         <div style={{ backgroundColor: '#DCDCDC', minHeight: '100vh', padding: '20px' }}>
             <ToastContainer
@@ -197,7 +185,7 @@ function App() {
                 }}>
                 {notes.map(note => (
                     <Card key={note.noteId} sx={{ width: '300px', height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                        <CardContent sx={{overflowY: 'auto' }}>
+                        <CardContent sx={{ overflowY: 'auto' }}>
                             {editingNoteId === note.noteId ? (
                                 <>
                                     <TextField
@@ -253,8 +241,7 @@ function App() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={{
-                    ...modalStyle,
+                <Box className="modal-style" sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 2
