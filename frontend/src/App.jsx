@@ -64,6 +64,7 @@ function App() {
                 .delete(`/api/notes/${noteId}`)
                 .then(() => {
                     fetchNotes();
+                    successAlert("Note deleted successfully");
                 })
                 .catch((error) => {
                     console.error("Error deleting notification:", error);
@@ -73,7 +74,7 @@ function App() {
 
     const addNote = () => {
         if (title === '') {
-            console.log('title is empty');
+            warningAlert("Title cannot be empty");
             return
         } else {
             axios
@@ -162,7 +163,7 @@ function App() {
 
 
     return (
-        <div>
+        <div style={{ backgroundColor: '#DCDCDC', minHeight: '100vh', padding: '20px' }}>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
@@ -177,7 +178,7 @@ function App() {
                 transition={Bounce}
             />
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, mt: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, mt: 3, ml: 3 }}>
                 <Typography variant="h3" gutterBottom>
                     My Notes:
                 </Typography>
