@@ -3,6 +3,7 @@ package com.hofer.NotesApp.service;
 import com.hofer.NotesApp.model.Note;
 import com.hofer.NotesApp.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public class NoteService {
     }
 
     public List<Note> getAllNotes(){
-        return noteRepository.findAll();
+        // return noteRepository.findAll();
+        return noteRepository.findAll(Sort.by(Sort.Direction.DESC, "noteId"));
     }
 
     public void createNote(Note note){
