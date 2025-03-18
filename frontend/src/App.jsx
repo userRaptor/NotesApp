@@ -3,6 +3,8 @@ import axios from 'axios'
 
 import { useState, useEffect } from 'react'
 import { Typography } from '@mui/material'
+import { ToastContainer, toast } from "react-toastify";
+import { Bounce } from "react-toastify";
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,10 +14,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 
-
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-
 
 
 function App() {
@@ -85,7 +84,7 @@ function App() {
                 .then(() => {
                     fetchNotes();
                     handleCloseModalAddNote();
-                    console.log('note added');
+                    successAlert("Note added successfully");
                 })
                 .catch((error) => {
                     console.error("Error adding notification:", error);
@@ -107,6 +106,48 @@ function App() {
         fetchNotes();
     }, []);
 
+    const successAlert = (infoSuccess) => {
+        toast.success(infoSuccess, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    };
+
+    const errorAlert = (infoError) => {
+        toast.error(infoError, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    };
+
+    const warningAlert = (infoWarning) => {
+        toast.warn(infoWarning, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    };
+
     const modalStyle = {
         position: 'absolute',
         top: '50%',
@@ -122,6 +163,20 @@ function App() {
 
     return (
         <div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
+
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, mt: 3 }}>
                 <Typography variant="h3" gutterBottom>
                     My Notes:
